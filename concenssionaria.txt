@@ -1,0 +1,355 @@
+Microsoft Windows [versão 10.0.19045.5131]
+(c) Microsoft Corporation. Todos os direitos reservados.
+
+C:\Users\Aluno>cd c:\xampp\mysql "cd bin"
+O sistema não pode encontrar o caminho especificado.
+
+C:\Users\Aluno>
+
+C:\Users\Aluno>c:\xampp\mysql
+'c:\xampp\mysql' não é reconhecido como um comando interno
+ou externo, um programa operável ou um arquivo em lotes.
+
+C:\Users\Aluno>cd c:\xampp\mysql
+
+c:\xampp\mysql>cd bin
+
+c:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 58
+Server version: 10.4.27-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database concenssionaria
+    -> ;
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| concenssionaria    |
+| information_schema |
+| loja               |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+7 rows in set (0.001 sec)
+
+MariaDB [(none)]> USE loja;
+Database changed
+MariaDB [loja]> describe;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [loja]> DESCRIBE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [loja]> SHOW;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [loja]> USE concenssionaria;
+Database changed
+MariaDB [concenssionaria]> create table categoria(
+    -> idcategoria int primary key auto_increment,
+    -> ctaegoria varchar(30));
+Query OK, 0 rows affected (0.034 sec)
+
+MariaDB [concenssionaria]> DESCRIBE categoria;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| idcategoria | int(11)     | NO   | PRI | NULL    | auto_increment |
+| ctaegoria   | varchar(30) | YES  |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+2 rows in set (0.026 sec)
+
+MariaDB [concenssionaria]> rename table ctaegoria to categoria
+    -> ;
+ERROR 1050 (42S01): Table 'categoria' already exists
+MariaDB [concenssionaria]> rename table ctaegoria to categorias;
+ERROR 1146 (42S02): Table 'concenssionaria.ctaegoria' doesn't exist
+MariaDB [concenssionaria]> show tables;
++---------------------------+
+| Tables_in_concenssionaria |
++---------------------------+
+| categoria                 |
++---------------------------+
+1 row in set (0.001 sec)
+
+MariaDB [concenssionaria]> ALTER TABLE categorias CHANGE COLUMN categoria nomeCategoria varchar(30) not null;
+ERROR 1146 (42S02): Table 'concenssionaria.categorias' doesn't exist
+MariaDB [concenssionaria]> Bye
+Ctrl-C -- exit!
+
+c:\xampp\mysql\bin>
+
+c:\xampp\mysql\bin>
+
+c:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 117
+Server version: 10.4.27-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use concenssionaria;
+Database changed
+MariaDB [concenssionaria]> describe tables;
+ERROR 1146 (42S02): Table 'concenssionaria.tables' doesn't exist
+MariaDB [concenssionaria]> describe categoria;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| idcategoria | int(11)     | NO   | PRI | NULL    | auto_increment |
+| categoria   | varchar(30) | YES  |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+2 rows in set (0.016 sec)
+
+MariaDB [concenssionaria]> ALTER TABLE categoria CHANGE COLUMN categorias nomeCategoria varchar(30) not null;
+ERROR 1054 (42S22): Unknown column 'categorias' in 'categoria'
+MariaDB [concenssionaria]> ALTER TABLE categoria CHANGE COLUMN categoria nomeCategoria varchar(30) not null;
+Query OK, 0 rows affected (0.065 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [concenssionaria]> DESCRIBE CATEGORIA;
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| idcategoria   | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nomeCategoria | varchar(30) | NO   |     | NULL    |                |
++---------------+-------------+------+-----+---------+----------------+
+2 rows in set (0.021 sec)
+
+MariaDB [concenssionaria]> show tables;
++---------------------------+
+| Tables_in_concenssionaria |
++---------------------------+
+| categoria                 |
++---------------------------+
+1 row in set (0.001 sec)
+
+MariaDB [concenssionaria]> CREATE TABLE products (
+    ->     product_id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     category_id INT,
+    ->     product_name VARCHAR(100) NOT NULL,
+    ->     description TEXT,
+    ->     price DECIMAL(10,2) NOT NULL,
+    ->     stock INT DEFAULT 0,
+    ->     FOREIGN KEY (category_id)
+    ->         REFERENCES categories(category_id)
+    -> );
+ERROR 1005 (HY000): Can't create table `concenssionaria`.`products` (errno: 150 "Foreign key constraint is incorrectly formed")
+MariaDB [concenssionaria]> describe;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [concenssionaria]> show create table categorias;
+ERROR 1146 (42S02): Table 'concenssionaria.categorias' doesn't exist
+MariaDB [concenssionaria]> show create table categoria
+    -> ;
++-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table     | Create Table                                                                                                                                                                                                       |
++-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| categoria | CREATE TABLE `categoria` (
+  `idcategoria` int(11) NOT NULL AUTO_INCREMENT,
+  `nomeCategoria` varchar(30) NOT NULL,
+  PRIMARY KEY (`idcategoria`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci |
++-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.001 sec)
+
+MariaDB [concenssionaria]> describe categorias;
+ERROR 1146 (42S02): Table 'concenssionaria.categorias' doesn't exist
+MariaDB [concenssionaria]> describe categoria;
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| idcategoria   | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nomeCategoria | varchar(30) | NO   |     | NULL    |                |
++---------------+-------------+------+-----+---------+----------------+
+2 rows in set (0.014 sec)
+
+MariaDB [concenssionaria]> SHOW VARIABLES LIKE 'default_storage_engine';
++------------------------+--------+
+| Variable_name          | Value  |
++------------------------+--------+
+| default_storage_engine | InnoDB |
++------------------------+--------+
+1 row in set (0.002 sec)
+
+MariaDB [concenssionaria]> CREATE TABLE cliente (
+    ->     idCliente INT AUTO_INCREMENT PRIMARY KEY,
+    ->     nome VARCHAR(100) NOT NULL,
+    ->     telefone VARCHAR(20)
+    -> );
+Query OK, 0 rows affected (0.029 sec)
+
+MariaDB [concenssionaria]> CREATE TABLE carro (
+    ->     idCarro INT AUTO_INCREMENT PRIMARY KEY,
+    ->     marca VARCHAR(30) NOT NULL,
+    ->     modelo VARCHAR(50) NOT NULL,
+    ->     ano INT,
+    ->     preco DECIMAL(10,2)
+    -> );
+Query OK, 0 rows affected (0.034 sec)
+
+MariaDB [concenssionaria]> CREATE TABLE venda (
+    ->     idVenda INT AUTO_INCREMENT PRIMARY KEY,
+    ->     idCliente INT NOT NULL,
+    ->     idCarro INT NOT NULL,
+    ->     dataVenda DATE,
+    ->
+    ->     FOREIGN KEY (idCliente)
+    ->         REFERENCES cliente(idCliente),
+    ->
+    ->     FOREIGN KEY (idCarro)
+    ->         REFERENCES carro(idCarro)
+    -> );
+Query OK, 0 rows affected (0.055 sec)
+
+MariaDB [concenssionaria]> use carro
+ERROR 1049 (42000): Unknown database 'carro'
+MariaDB [concenssionaria]> show carro;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'carro' at line 1
+MariaDB [concenssionaria]> INSERT INTO carro (marca, modelo, ano, preco)
+    -> VALUES ('Lamborghini', 'Veneno', 2013, 27000000.00),
+    -> ('Lamborghini', 'Aventador', 2017, 8000000.00),
+    -> ('Lamborghini', 'Revuelto',2025, 8400000.00 ),
+    -> ('Pagani', 'Huyara', 2025, 60000000.00),
+    -> ('Pagani', 'ZondaR', 2010, 40000000.00),
+    -> ('Pagani', 'Utopia', 2022, 60000000.00),
+    -> ('McLaren', 'Senna', 2018, 9000000.00),
+    -> ('McLaren', 'P1', 2013, 14000000.00),
+    -> ('McLaren', '720S' 2022, 4210000.00),
+    -> ('Koenigsegg', 'Jesko' 2019, 18000000.00);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '2022, 4210000.00),
+('Koenigsegg', 'Jesko' 2019, 18000000.00)' at line 10
+MariaDB [concenssionaria]> INSERT INTO carro (marca, modelo, ano, preco)
+    -> VALUES
+    -> ('Lamborghini', 'Veneno', 2013, 27000000.00),
+    -> ('Lamborghini', 'Aventador', 2017, 8000000.00),
+    -> ('Lamborghini', 'Revuelto', 2025, 8400000.00),
+    -> ('Pagani', 'Huayra', 2025, 60000000.00),
+    -> ('Pagani', 'Zonda R', 2010, 40000000.00),
+    -> ('Pagani', 'Utopia', 2022, 60000000.00),
+    -> ('McLaren', 'Senna', 2018, 9000000.00),
+    -> ('McLaren', 'P1', 2013, 14000000.00),
+    -> ('McLaren', '720S', 2022, 4210000.00),
+    -> ('Koenigsegg', 'Jesko', 2019, 18000000.00);
+Query OK, 10 rows affected (0.006 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+MariaDB [concenssionaria]> select * from carro;
++---------+-------------+-----------+------+-------------+
+| idCarro | marca       | modelo    | ano  | preco       |
++---------+-------------+-----------+------+-------------+
+|       1 | Lamborghini | Veneno    | 2013 | 27000000.00 |
+|       2 | Lamborghini | Aventador | 2017 |  8000000.00 |
+|       3 | Lamborghini | Revuelto  | 2025 |  8400000.00 |
+|       4 | Pagani      | Huayra    | 2025 | 60000000.00 |
+|       5 | Pagani      | Zonda R   | 2010 | 40000000.00 |
+|       6 | Pagani      | Utopia    | 2022 | 60000000.00 |
+|       7 | McLaren     | Senna     | 2018 |  9000000.00 |
+|       8 | McLaren     | P1        | 2013 | 14000000.00 |
+|       9 | McLaren     | 720S      | 2022 |  4210000.00 |
+|      10 | Koenigsegg  | Jesko     | 2019 | 18000000.00 |
++---------+-------------+-----------+------+-------------+
+10 rows in set (0.001 sec)
+
+MariaDB [concenssionaria]> select marca, modelo from carro;
++-------------+-----------+
+| marca       | modelo    |
++-------------+-----------+
+| Lamborghini | Veneno    |
+| Lamborghini | Aventador |
+| Lamborghini | Revuelto  |
+| Pagani      | Huayra    |
+| Pagani      | Zonda R   |
+| Pagani      | Utopia    |
+| McLaren     | Senna     |
+| McLaren     | P1        |
+| McLaren     | 720S      |
+| Koenigsegg  | Jesko     |
++-------------+-----------+
+10 rows in set (0.001 sec)
+
+MariaDB [concenssionaria]> select marca, preco from carro;
++-------------+-------------+
+| marca       | preco       |
++-------------+-------------+
+| Lamborghini | 27000000.00 |
+| Lamborghini |  8000000.00 |
+| Lamborghini |  8400000.00 |
+| Pagani      | 60000000.00 |
+| Pagani      | 40000000.00 |
+| Pagani      | 60000000.00 |
+| McLaren     |  9000000.00 |
+| McLaren     | 14000000.00 |
+| McLaren     |  4210000.00 |
+| Koenigsegg  | 18000000.00 |
++-------------+-------------+
+10 rows in set (0.001 sec)
+
+MariaDB [concenssionaria]> select * from carro
+    -> WHERE marca = 'Lamborghini'
+    -> ;
++---------+-------------+-----------+------+-------------+
+| idCarro | marca       | modelo    | ano  | preco       |
++---------+-------------+-----------+------+-------------+
+|       1 | Lamborghini | Veneno    | 2013 | 27000000.00 |
+|       2 | Lamborghini | Aventador | 2017 |  8000000.00 |
+|       3 | Lamborghini | Revuelto  | 2025 |  8400000.00 |
++---------+-------------+-----------+------+-------------+
+3 rows in set (0.001 sec)
+
+MariaDB [concenssionaria]> select * from carro
+    -> where ano = 2022;
++---------+---------+--------+------+-------------+
+| idCarro | marca   | modelo | ano  | preco       |
++---------+---------+--------+------+-------------+
+|       6 | Pagani  | Utopia | 2022 | 60000000.00 |
+|       9 | McLaren | 720S   | 2022 |  4210000.00 |
++---------+---------+--------+------+-------------+
+2 rows in set (0.001 sec)
+
+MariaDB [concenssionaria]> select * from carro
+    -> order by preco desc;
++---------+-------------+-----------+------+-------------+
+| idCarro | marca       | modelo    | ano  | preco       |
++---------+-------------+-----------+------+-------------+
+|       6 | Pagani      | Utopia    | 2022 | 60000000.00 |
+|       4 | Pagani      | Huayra    | 2025 | 60000000.00 |
+|       5 | Pagani      | Zonda R   | 2010 | 40000000.00 |
+|       1 | Lamborghini | Veneno    | 2013 | 27000000.00 |
+|      10 | Koenigsegg  | Jesko     | 2019 | 18000000.00 |
+|       8 | McLaren     | P1        | 2013 | 14000000.00 |
+|       7 | McLaren     | Senna     | 2018 |  9000000.00 |
+|       3 | Lamborghini | Revuelto  | 2025 |  8400000.00 |
+|       2 | Lamborghini | Aventador | 2017 |  8000000.00 |
+|       9 | McLaren     | 720S      | 2022 |  4210000.00 |
++---------+-------------+-----------+------+-------------+
+10 rows in set (0.001 sec)
+
+MariaDB [concenssionaria]> select * from carro
+    -> where marca = 'Lamborghini',
+    ->  and preco >     10000000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '
+        and preco >     10000000' at line 2
+MariaDB [concenssionaria]> select * from carro
+    -> where marca = 'Lamborghini',
+    -> and preco > 10000000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '
+and preco > 10000000' at line 2
+MariaDB [concenssionaria]> select * from carro
+    -> where marca = 'Lamborghini'
+    -> and preco > 10000000;
++---------+-------------+--------+------+-------------+
+| idCarro | marca       | modelo | ano  | preco       |
++---------+-------------+--------+------+-------------+
+|       1 | Lamborghini | Veneno | 2013 | 27000000.00 |
++---------+-------------+--------+------+-------------+
+1 row in set (0.001 sec)
+
+MariaDB [concenssionaria]>
